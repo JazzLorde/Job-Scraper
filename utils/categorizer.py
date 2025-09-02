@@ -103,7 +103,7 @@ def categorize_job_title(job_title):
         'support', 'support analyst', 'it technician',
         'computer technician', 'user productivity', 'end user', 
         'contact center', 'field support',
-        'helpdesk', 'technical', 'support lead', 'deskside support', 'it staff', 'it service', 'it desk'
+        'helpdesk', 'technical', 'support lead', 'deskside support', 'it staff', 'it service', 'it desk','service desk'
     ]
     
     # Non-IT roles to exclude
@@ -154,6 +154,7 @@ def categorize_job_title(job_title):
     
     # If no match found, still consider it IT-related since it passed the non-IT filter
     return 'Other IT'
+
 
 
 
