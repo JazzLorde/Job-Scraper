@@ -58,7 +58,7 @@ def categorize_job_title(job_title):
         'full stack', 'fullstack', 'angular developer', 'react developer',
         'vue', 'nodejs', 'web engineer', 'wordpress', 'ui developer', 
         'web designer', 'frontend engineer', 'ui/ux developer',
-        'javascript developer', 'html', 'css developer', 'java enterprise','java','ui/ux','ui','ux'
+        'javascript developer', 'html', 'css developer', 'java enterprise','java','ui/ux','ui','ux','next.js',
         # Mobile Development
         'mobile developer', 'android developer', 
         'app developer', 'android', 'mobile app', 'cobol',
@@ -154,6 +154,7 @@ def categorize_job_title(job_title):
     
     # If no match found, still consider it IT-related since it passed the non-IT filter
     return 'Other IT'
+
 
 
 
