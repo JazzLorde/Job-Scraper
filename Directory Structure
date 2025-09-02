@@ -1,0 +1,23 @@
+Job Scraper Setup Guide
+
+Directory Structure
+
+job_scraper/
+├── main.py                     # Main entry point
+├── requirements.txt            # Dependencies
+├── config/
+│   └── database.py            # Database configuration
+├── database/
+│   └── connection.py          # Database connection handling
+├── scrapers/
+│   ├── base_scraper.py        # Base scraper class
+│   ├── indeed_scraper.py      # Indeed scraper (complete)
+│   ├── kalibrr_scraper.py     # Kalibrr scraper (template)
+│   ├── jobstreet_scraper.py   # JobStreet scraper (to create)
+│   ├── linkedin_scraper.py    # LinkedIn scraper (to create)
+│   └── foundit_scraper.py     # Foundit scraper (to create)
+└── utils/
+    ├── browser.py             # Chrome driver setup
+    ├── date_utils.py          # Date conversion functions
+    ├── tech_extractor.py      # Technology extraction
+    └── categorizer.py         # Job categorization
