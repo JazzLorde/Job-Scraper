@@ -9,16 +9,16 @@ def extract_technologies(job_text):
     """Extract technologies and skills from job description text"""
     
     print(f"DEBUG - Input text: '{job_text[:200]}...'" if len(job_text) > 200 else f"DEBUG - Input text: '{job_text}'")
-    
     tech_keywords = [
         # Programming Languages
-        'python', 'java', 'javascript', 'typescript', 'c++', 'c#', 'php', 'ruby', 'rust', 'swift', 'kotlin', 'scala', 'r',
+        'python', 'java', 'javascript', 'typescript', 'c++', 'c#', 'php', 'ruby', 'rust', 'swift', 'kotlin', 'scala', 'r', 'javaee'
         # Web Technologies
-        'html', 'css', 'react', 'angular', 'vue', 'node.js', 'express', 'django', 'flask', 'spring', 'laravel', 'html5', 'css3',
+        'html', 'css', 'react', 'angular', 'vue', 'node.js', 'express', 'django', 'flask', 'spring', 'laravel', 'html5', 'css3','handlebars', 'nuxt','jquery','asp.net','bootsrap','blazor','razor','zend',
+        'razor','laminas','drupal','twig','sass','scss','graphql',
         # Databases & Data Technologies
         'sql', 'mysql', 'postgresql', 'mongodb', 'redis', 'elasticsearch', 'sqlite', 'oracle', 'sql server', 'nosql', 'hadoop', 'spark', 'etl', 'databricks',
         # Cloud & DevOps
-        'aws', 'azure', 'gcp', 'google cloud', 'docker', 'kubernetes', 'jenkins', 'terraform', 'ansible', 'devops',
+        'aws', 'azure', 'gcp', 'google cloud', 'docker', 'kubernetes', 'jenkins', 'terraform', 'ansible', 'iis', 
         # Data & Analytics
         'pandas', 'numpy', 'tensorflow', 'pytorch', 'scikit-learn', 'tableau', 'power bi', 'excel', 'stata', 
         # Mobile Development
@@ -30,7 +30,6 @@ def extract_technologies(job_text):
         # Additional tools
         'vba', 'power query', 'ms office', 'microsoft office', 'macros', 'excel macros'
     ]
-    
     job_text_lower = job_text.lower()
     found_technologies = []
     
@@ -101,4 +100,5 @@ def extract_technologies(job_text):
     result = ', '.join(sorted(list(set(found_technologies)))) if found_technologies else None
     print(f"DEBUG - Final result: '{result}'")
     
+
     return result
