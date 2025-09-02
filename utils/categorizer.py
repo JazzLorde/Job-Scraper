@@ -69,7 +69,7 @@ def categorize_job_title(job_title):
         'developer', 'engineer', '.net developer', 'php developer',
         'c++ developer', 'technical developer', 'kong developer',
         'backend engineer', 'application engineer', 'systems developer', 
-        'solutions engineer', 'enterprise solutions', 'solutions', 'product designer','building tool', 'website', 'website administrator'
+        'solutions engineer', 'enterprise solutions', 'solutions', 'product designer','building tool', 'website', 'website administrator','solutions designer'
     ]
     
     # 8. Network and Systems Administration  
@@ -154,5 +154,6 @@ def categorize_job_title(job_title):
     
     # If no match found, still consider it IT-related since it passed the non-IT filter
     return 'Other IT'
+
 
 
