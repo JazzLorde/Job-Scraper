@@ -85,7 +85,7 @@ def categorize_job_title(job_title):
         'business analyst', 'systems analyst', 'functional analyst',
         'process analyst', 'business systems analyst',
         'requirements analyst', 'system analyst', 'functional',
-        'business systems', 'process improvement', 'presales', 'payroll'
+        'business systems', 'process improvement', 'presales', 'payroll','SAP','enterprise'
     ]
     
     # 10. IT Management and Operations
@@ -154,6 +154,7 @@ def categorize_job_title(job_title):
     
     # If no match found, still consider it IT-related since it passed the non-IT filter
     return 'Other IT'
+
 
 
 
