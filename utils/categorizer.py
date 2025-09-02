@@ -30,7 +30,7 @@ def categorize_job_title(job_title):
     # 3. Database Administration
     db_keywords = [
         'database administrator', 'dba', 'database',
-        'sql administrator', 'metadata'
+        'sql administrator', 'metadata', "db administrator","sql server","migration",'extract transform'
     ]
     
     # 4. Cloud Computing
@@ -41,7 +41,7 @@ def categorize_job_title(job_title):
     # 5. Cybersecurity
     security_keywords = [
         'security', 'security officer', 'cybersecurity', 'penetration', 
-        'application security', 'infosec', 'cyber security', 'cyber'
+        'application security', 'infosec', 'cyber security', 'cyber', 'it security'
     ]
     
     # 6. Data Science and Analysis
@@ -58,7 +58,7 @@ def categorize_job_title(job_title):
         'full stack', 'fullstack', 'angular developer', 'react developer',
         'vue', 'nodejs', 'web engineer', 'wordpress', 'ui developer', 
         'web designer', 'frontend engineer', 'ui/ux developer',
-        'javascript developer', 'html', 'css developer',
+        'javascript developer', 'html', 'css developer', 'java enterprise','java','ui/ux','ui','ux'
         # Mobile Development
         'mobile developer', 'android developer', 
         'app developer', 'android', 'mobile app', 'cobol',
@@ -69,7 +69,7 @@ def categorize_job_title(job_title):
         'developer', 'engineer', '.net developer', 'php developer',
         'c++ developer', 'technical developer', 'kong developer',
         'backend engineer', 'application engineer', 'systems developer', 
-        'solutions engineer', 'enterprise solutions', 'solutions', 'product designer'
+        'solutions engineer', 'enterprise solutions', 'solutions', 'product designer','building tool', 'website', 'website administrator'
     ]
     
     # 8. Network and Systems Administration  
@@ -154,4 +154,5 @@ def categorize_job_title(job_title):
     
     # If no match found, still consider it IT-related since it passed the non-IT filter
     return 'Other IT'
+
 
