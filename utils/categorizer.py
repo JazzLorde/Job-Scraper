@@ -30,7 +30,7 @@ def categorize_job_title(job_title):
     # 3. Database Administration
     db_keywords = [
         'database administrator', 'dba', 'database',
-        'sql administrator', 'metadata', "db administrator","sql server","migration",'extract transform'
+        'sql administrator', 'metadata', "db administrator","sql server","migration",'extract transform','data architect','data administrator'
     ]
     
     # 4. Cloud Computing
@@ -48,7 +48,8 @@ def categorize_job_title(job_title):
     data_keywords = [
         'data scientist', 'data analyst', 'data eng', 'business intelligence',
         'machine learning', 'analytics', 'bi analyst', 'reporting analyst', 'data conversion',
-        'ml', 'web analyst'
+        'ml', 'web analyst','sql','data visualization','analyst','data annotator','data specialist','powerbi','data workflow analyst',
+        'data strategy','sql analyst', 'sql', 'bi reporting',
     ]
     
     # 7. Software, Web, and Mobile Development (COMBINED CATEGORY)
@@ -69,7 +70,8 @@ def categorize_job_title(job_title):
         'developer', 'engineer', '.net developer', 'php developer',
         'c++ developer', 'technical developer', 'kong developer',
         'backend engineer', 'application engineer', 'systems developer', 
-        'solutions engineer', 'enterprise solutions', 'solutions', 'product designer','building tool', 'website', 'website administrator','solutions designer'
+        'solutions engineer', 'enterprise solutions', 'solutions', 'product designer','building tool', 'website', 'website administrator','solutions designer',
+        'software development','software architect','ai & automation','ai architect','nodejs'
     ]
     
     # 8. Network and Systems Administration  
@@ -77,7 +79,7 @@ def categorize_job_title(job_title):
         'system administrator', 'systems administrator', 'sysadmin',
         'network administrator', 'it administrator', 'server administrator',
         'system analyst', 'it officer', 'system i', 'infrastructure specialist',
-        'systems engineer', 'network engineer', 'server engineer', 'ip telephony', 'telephony', 'system'
+        'systems engineer', 'network engineer', 'server engineer', 'ip telephony', 'telephony', 'system','technology architecture'
     ]
     
     # 9. Business and Systems Analysis
@@ -85,7 +87,8 @@ def categorize_job_title(job_title):
         'business analyst', 'systems analyst', 'functional analyst',
         'process analyst', 'business systems analyst',
         'requirements analyst', 'system analyst', 'functional',
-        'business systems', 'process improvement', 'presales', 'payroll','SAP','enterprise'
+        'business systems', 'process improvement', 'presales', 'payroll','sap','enterprise','sap consultant','sap fico', 'sap associate',
+        'sap administrator'
     ]
     
     # 10. IT Management and Operations
@@ -94,7 +97,8 @@ def categorize_job_title(job_title):
         'it strategic business partner', 'business partner manager',
         'billing consultant', 'technical project manager',
         'business development', 'technical consultant',
-        'technology consultant', 'manager', 'project management', 'itsm', 'director', 'governance', 'compliance', 'management'
+        'technology consultant', 'manager', 'project management', 'itsm', 'director', 'governance', 'compliance', 'management', 'it operations','it project coordinator','chief technology officer',
+        'it supervisor','chief transformation officer', 'it project lead', 'it project', 'it lead', 'project administrator','it specialist','scrum',
     ]
     
     # 11. IT Support and Helpdesk
@@ -103,20 +107,10 @@ def categorize_job_title(job_title):
         'support', 'support analyst', 'it technician',
         'computer technician', 'user productivity', 'end user', 
         'contact center', 'field support',
-        'helpdesk', 'technical', 'support lead', 'deskside support', 'it staff', 'it service', 'it desk','service desk','computer operator'
+        'helpdesk', 'technical', 'support lead', 'deskside support', 'it staff', 'it service', 'it desk','service desk','computer operator','assistant', 
+        'information technology','information staff','technology staff', "it intern", 'it specialist'
     ]
-    
-    # Non-IT roles to exclude
-    non_it_keywords = [
-        'sales representative', 'marketing specialist', 'hr specialist', 
-        'human resources', 'finance manager', 'accounting', 'recruiter',
-        'account executive', 'customer service', 'administrative',
-        'operations manager', 'logistics', 'procurement'
-    ]
-    
-    # Check for non-IT first
-    if any(keyword in title_clean for keyword in non_it_keywords):
-        return 'Excluded - Non IT'
+
     
     # Check categories in order of specificity
     if any(keyword in title_clean for keyword in devops_keywords):
