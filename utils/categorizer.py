@@ -16,7 +16,7 @@ def categorize_job_title(job_title):
         'devops', 'platform engineer', 'site reliability', 'sre', 
         'infrastructure engineer', 'terraform', 'kubernetes', 'docker',
         'ci/cd', 'pipeline', 'release engineer',
-        'infrastructure automation', 'deployment engineer'
+        'infrastructure automation', 'deployment engineer', 'platform architect'
     ]
     
     # 2. Quality Assurance and Testing  
@@ -35,7 +35,7 @@ def categorize_job_title(job_title):
     
     # 4. Cloud Computing
     cloud_keywords = [
-        'cloud', 'cloud specialist', 'aws', 'azure', 'gcp'
+        'cloud', 'cloud specialist', 'aws', 'azure', 'gcp', 'solutions architect'
     ]
     
     # 5. Cybersecurity
@@ -49,7 +49,7 @@ def categorize_job_title(job_title):
         'data scientist', 'data analyst', 'data eng', 'business intelligence',
         'machine learning', 'analytics', 'bi analyst', 'reporting analyst', 'data conversion',
         'ml', 'web analyst','sql','data visualization','analyst','data annotator','data specialist','powerbi','data workflow analyst',
-        'data strategy','sql analyst', 'sql', 'bi reporting',
+        'data strategy','sql analyst', 'sql', 'bi reporting', 
     ]
     
     # 7. Software, Web, and Mobile Development (COMBINED CATEGORY)
@@ -65,12 +65,12 @@ def categorize_job_title(job_title):
         'app developer', 'android', 'mobile app', 'cobol',
         # Software Development
         'software developer', 'software engineer', 'programmer',
-        'application developer', 'solutions engineer',
+        'application developer',
         'java developer', 'python developer', 'golang developer',
         'developer', 'engineer', '.net developer', 'php developer',
         'c++ developer', 'technical developer', 'kong developer',
         'backend engineer', 'application engineer', 'systems developer', 
-        'solutions engineer', 'enterprise solutions', 'solutions', 'product designer','building tool', 'website', 'website administrator','solutions designer',
+        'solutions engineer', 'solutions', 'product designer','building tool', 'website', 'website administrator',
         'software development','software architect','ai & automation','ai architect','nodejs'
     ]
     
@@ -98,7 +98,7 @@ def categorize_job_title(job_title):
         'billing consultant', 'technical project manager',
         'business development', 'technical consultant',
         'technology consultant', 'manager', 'project management', 'itsm', 'director', 'governance', 'compliance', 'management', 'it operations','it project coordinator','chief technology officer',
-        'it supervisor','chief transformation officer', 'it project lead', 'it project', 'it lead', 'project administrator','it specialist','scrum',
+        'it supervisor','chief transformation officer', 'it project lead', 'it project', 'it lead', 'project administrator','it specialist','scrum', 'enterprise solutions', 
     ]
     
     # 11. IT Support and Helpdesk
@@ -113,6 +113,12 @@ def categorize_job_title(job_title):
 
     
     # Check categories in order of specificity
+    if any(keyword in title_clean for keyword in support_keywords):
+        return 'IT Support and Helpdesk'
+
+    if any(keyword in title_clean for keyword in data_keywords):
+        return 'Data Science and Analysis'
+
     if any(keyword in title_clean for keyword in devops_keywords):
         return 'DevOps and Platform Engineering'
     
@@ -131,12 +137,6 @@ def categorize_job_title(job_title):
     if any(keyword in title_clean for keyword in security_keywords):
         return 'Cybersecurity'
     
-    if any(keyword in title_clean for keyword in support_keywords):
-        return 'IT Support and Helpdesk'
-
-    if any(keyword in title_clean for keyword in data_keywords):
-        return 'Data Science and Analysis'
-    
     if any(keyword in title_clean for keyword in software_web_mobile_keywords):
         return 'Software, Web, and Mobile Development'
     
@@ -148,7 +148,6 @@ def categorize_job_title(job_title):
     
     # If no match found, still consider it IT-related since it passed the non-IT filter
     return 'Other IT'
-
 
 
 
