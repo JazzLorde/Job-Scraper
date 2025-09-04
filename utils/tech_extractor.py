@@ -123,6 +123,24 @@ def extract_technologies(job_text):
             if any(re.search(pattern, job_text_lower) for pattern in aws_patterns):
                 found_technologies.append('AWS')
         
+        # Special handling for Express.js web framework
+        elif tech_lower == 'express':
+            express_patterns = [
+                r'\bexpress\s+js\b', r'\bexpress\.js\b', r'\bexpressjs\b',
+                r'\bexpress\s+framework\b', r'\bexpress\s+server\b', r'\bexpress\s+application\b',
+                r'\bexpress\s+and\s+node\b', r'\bnode\s+and\s+express\b', r'\bnode\.?js\s+express\b',
+                r'\bexpress\s+node\b', r'\bexpress\s+backend\b', r'\bbackend\s+express\b',
+                r'\bexpress\s+api\b', r'\bapi\s+express\b', r'\bexpress\s+rest\b',
+                r'\busing\s+express\b', r'\bwith\s+express\b', r'\bexpress\s+development\b',
+                r'\bexpress\s+developer\b', r'\bexpress\s+web\b', r'\bweb\s+express\b',
+                r'\bexpress\s*[,/]\s*node\b', r'\bnode\s*[,/]\s*express\b',
+                r'\bknowledge\s+of\s+express\b', r'\bexperience\s+with\s+express\b', r'\bproficient\s+in\s+express\b',
+                r'\bexpress\s+skills\b', r'\bexpress\s+expertise\b', r'\bexpress\s+middleware\b'
+            ]
+            
+            if any(re.search(pattern, job_text_lower) for pattern in express_patterns):
+                found_technologies.append('Express')
+        
         
         # Special handling for SSIS (SQL Server Integration Services)
         elif tech_lower == 'ssis':
@@ -139,6 +157,61 @@ def extract_technologies(job_text):
             
             if any(re.search(pattern, job_text_lower) for pattern in ssis_patterns):
                 found_technologies.append('SSIS')
+
+        # Special handling for Rust programming language
+        elif tech_lower == 'rust':
+            rust_patterns = [
+                r'\brust\s+programming\b', r'\brust\s+language\b', r'\brust\s+developer\b',
+                r'\brust\s+engineer\b', r'\brust\s+development\b', r'\brust\s+systems\b',
+                r'\brust\s+code\b', r'\brust\s+application\b', r'\brust\s+service\b',
+                r'\busing\s+rust\b', r'\bwith\s+rust\b', r'\brust\s+experience\b',
+                r'\brust\s+and\s+webassembly\b', r'\bwebassembly\s+and\s+rust\b',
+                r'\brust\s+and\s+c\+\+\b', r'\bc\+\+\s+and\s+rust\b',
+                r'\brust\s*[,/]\s*python\b', r'\bpython\s*[,/]\s*rust\b',
+                r'\bknowledge\s+of\s+rust\b', r'\bexperience\s+with\s+rust\b', r'\bproficient\s+in\s+rust\b',
+                r'\brust\s+skills\b', r'\brust\s+expertise\b', r'\brust\s+backend\b'
+            ]
+            
+            if any(re.search(pattern, job_text_lower) for pattern in rust_patterns):
+                found_technologies.append('Rust')
+        
+        # Special handling for React JavaScript library
+        elif tech_lower == 'react':
+            react_patterns = [
+                r'\breact\s+development\b', r'\breact\s+developer\b', r'\breact\s+engineer\b',
+                r'\breact\s+frontend\b', r'\bfrontend\s+react\b', r'\breact\s+js\b',
+                r'\breact\.js\b', r'\breact\s+native\b', r'\breact\s+component\b',
+                r'\breact\s+hooks\b', r'\breact\s+application\b', r'\breact\s+app\b',
+                r'\busing\s+react\b', r'\bwith\s+react\b', r'\breact\s+experience\b',
+                r'\breact\s+and\s+javascript\b', r'\bjavascript\s+and\s+react\b',
+                r'\breact\s+and\s+node\b', r'\bnode\s+and\s+react\b',
+                r'\breact\s+and\s+redux\b', r'\bredux\s+and\s+react\b',
+                r'\breact\s*[,/]\s*angular\b', r'\bangular\s*[,/]\s*react\b',
+                r'\bknowledge\s+of\s+react\b', r'\bexperience\s+with\s+react\b', r'\bproficient\s+in\s+react\b',
+                r'\breact\s+skills\b', r'\breact\s+expertise\b', r'\breact\s+framework\b'
+            ]
+            
+            if any(re.search(pattern, job_text_lower) for pattern in react_patterns):
+                found_technologies.append('React')
+        
+        # Special handling for Swift programming language (avoid common English usage)
+        elif tech_lower == 'swift':
+            swift_patterns = [
+                r'\bswift\s+programming\b', r'\bswift\s+language\b', r'\bswift\s+developer\b',
+                r'\bswift\s+engineer\b', r'\bswift\s+development\b', r'\bswift\s+code\b',
+                r'\bios\s+swift\b', r'\bswift\s+ios\b', r'\bswift\s+and\s+ios\b',
+                r'\bios\s+and\s+swift\b', r'\bswift\s+application\b', r'\bswift\s+app\b',
+                r'\busing\s+swift\b', r'\bwith\s+swift\b', r'\bswift\s+experience\b',
+                r'\bswift\s+and\s+objective.?c\b', r'\bobjective.?c\s+and\s+swift\b',
+                r'\bswift\s+and\s+xcode\b', r'\bxcode\s+and\s+swift\b',
+                r'\bswift\s*[,/]\s*objective.?c\b', r'\bobjective.?c\s*[,/]\s*swift\b',
+                r'\bknowledge\s+of\s+swift\b', r'\bexperience\s+with\s+swift\b', r'\bproficient\s+in\s+swift\b',
+                r'\bswift\s+skills\b', r'\bswift\s+expertise\b', r'\bswift\s+mobile\b',
+                r'\bmobile\s+swift\b', r'\bapple\s+swift\b', r'\bswift\s+apple\b'
+            ]
+            
+            if any(re.search(pattern, job_text_lower) for pattern in swift_patterns):
+                found_technologies.append('Swift')
         
         # Special handling for iOS mobile platform
         elif tech_lower == 'ios':
