@@ -88,7 +88,7 @@ def categorize_job_title(job_title):
         'process analyst', 'business systems analyst',
         'requirements analyst', 'system analyst', 'functional',
         'business systems', 'process improvement', 'presales', 'payroll','sap','enterprise','sap consultant','sap fico', 'sap associate',
-        'sap administrator'
+        'sap administrator', 'technical consultant', 
     ]
     
     # 10. IT Management and Operations
@@ -96,8 +96,8 @@ def categorize_job_title(job_title):
         'it project manager', 'project manager', 'owner',
         'it strategic business partner', 'business partner manager',
         'billing consultant', 'technical project manager',
-        'business development', 'technical consultant',
-        'technology consultant', 'manager', 'project management', 'itsm', 'director', 'governance', 'compliance', 'management', 'it operations','it project coordinator','chief technology officer',
+        'business development', 
+        'manager', 'project management', 'itsm', 'director', 'governance', 'compliance', 'management', 'it operations','it project coordinator','chief technology officer',
         'it supervisor','chief transformation officer', 'it project lead', 'it project', 'it lead', 'project administrator','it specialist','scrum', 'enterprise solutions', 
     ]
     
@@ -113,11 +113,6 @@ def categorize_job_title(job_title):
 
     
     # Check categories in order of specificity
-    if any(keyword in title_clean for keyword in support_keywords):
-        return 'IT Support and Helpdesk'
-
-    if any(keyword in title_clean for keyword in data_keywords):
-        return 'Data Science and Analysis'
 
     if any(keyword in title_clean for keyword in devops_keywords):
         return 'DevOps and Platform Engineering'
@@ -136,6 +131,12 @@ def categorize_job_title(job_title):
     
     if any(keyword in title_clean for keyword in security_keywords):
         return 'Cybersecurity'
+    
+    if any(keyword in title_clean for keyword in support_keywords):
+        return 'IT Support and Helpdesk'
+
+    if any(keyword in title_clean for keyword in data_keywords):
+        return 'Data Science and Analysis'
     
     if any(keyword in title_clean for keyword in software_web_mobile_keywords):
         return 'Software, Web, and Mobile Development'
