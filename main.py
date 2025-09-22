@@ -21,15 +21,14 @@ if __name__ == "__main__":
         clear_scraped_jobs()
 
         # Run individual scrapers
-        # scraper = IndeedScraper()
-        # scraper.scrape("software developer")
+        scraper = IndeedScraper()
+        scraper.scrape("software developer")
         
-        # scraper = KalibrrScraper()
-        #scraper.scrape_manual()
+        scraper = KalibrrScraper()
+        scraper.scrape_manual()
         
-        # Add other scrapers as you create them:
-        # scraper = JobstreetScraper()  
-        # scraper.scrape_manual()
+        scraper = JobstreetScraper()  
+        scraper.scrape_manual()
 
         scraper = LinkedinScraper()
         scraper.scrape_manual()
@@ -42,4 +41,3 @@ if __name__ == "__main__":
         print("Uncomment the scraper functions you want to use.")
     else:
         print("Database setup failed! Please check your PostgreSQL connection.")
-        print("Make sure PostgreSQL is running and database 'JobPostings' exists.")
