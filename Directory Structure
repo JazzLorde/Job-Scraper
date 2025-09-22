@@ -11,11 +11,11 @@ job_scraper/
 │   └── connection.py          # Database connection handling
 ├── scrapers/
 │   ├── base_scraper.py        # Base scraper class
-│   ├── indeed_scraper.py      # Indeed scraper (complete)
-│   ├── kalibrr_scraper.py     # Kalibrr scraper (template)
-│   ├── jobstreet_scraper.py   # JobStreet scraper (to create)
-│   ├── linkedin_scraper.py    # LinkedIn scraper (to create)
-│   └── foundit_scraper.py     # Foundit scraper (to create)
+│   ├── indeed_scraper.py      # Indeed scraper 
+│   ├── kalibrr_scraper.py     # Kalibrr scraper 
+│   ├── jobstreet_scraper.py   # JobStreet scraper 
+│   ├── linkedin_scraper.py    # LinkedIn scraper 
+│   └── foundit_scraper.py     # Foundit scraper 
 └── utils/
     ├── browser.py             # Chrome driver setup
     ├── date_utils.py          # Date conversion functions
