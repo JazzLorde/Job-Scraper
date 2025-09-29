@@ -23,24 +23,24 @@ Platform-Specific Scraping Workflows
 Each platform requires different setup steps based on available filters. 
 
 1. LinkedIn
-  Runs: 3 times (once per industry filter) | Limit: 5,000 jobs per run
-  Setup Steps:
-  Browser opens LinkedIn Jobs (Philippines location)
-  You manually select filters:
-  Industry and Job Function
-  Industry: Choose ONE option (run separately for each):
-  Technology, Information and Internet
-  IT Services and Consulting
-  Job Function: Information Technology
+  - Runs: 3 times (once per industry filter) | Limit: 5,000 jobs per run
+  - Setup Steps:
+  a. Browser opens LinkedIn Jobs (Philippines location)
+  b. You manually select filters:
+    Industry and Job Function
+    Industry: Choose ONE option (run separately for each):
+    Technology, Information and Internet
+    IT Services and Consulting
+    Job Function: Information Technology
   
 
-  Press ENTER to start scraping
-  What Happens:
-  Automatically scrolls down to load more jobs
-  Collects job URLs from cards
-  Visits each job page individually
-  Extracts all data fields
-  Saves to database 
+  c. Press ENTER to start scraping
+    What Happens:  
+  d. Automatically scrolls down to load more jobs
+  e. Collects job URLs from cards
+  f. Visits each job page individually
+  g. Extracts all data fields
+  h. Saves to database 
 
 2. JobStreet
   Runs: 1 time | Limit: 5,000 jobs per run
