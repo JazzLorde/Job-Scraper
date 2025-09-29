@@ -23,39 +23,39 @@ Platform-Specific Scraping Workflows
 Each platform requires different setup steps based on available filters. 
 
 1. LinkedIn
-Runs: 3 times (once per industry filter) | Limit: 5,000 jobs per run
-Setup Steps:
-Browser opens LinkedIn Jobs (Philippines location)
-You manually select filters:
-Industry and Job Function
-Industry: Choose ONE option (run separately for each):
-Technology, Information and Internet
-IT Services and Consulting
-Job Function: Information Technology
+  Runs: 3 times (once per industry filter) | Limit: 5,000 jobs per run
+  Setup Steps:
+  Browser opens LinkedIn Jobs (Philippines location)
+  You manually select filters:
+  Industry and Job Function
+  Industry: Choose ONE option (run separately for each):
+  Technology, Information and Internet
+  IT Services and Consulting
+  Job Function: Information Technology
+  
 
-
-Press ENTER to start scraping
-What Happens:
-Automatically scrolls down to load more jobs
-Collects job URLs from cards
-Visits each job page individually
-Extracts all data fields
-Saves to database 
+  Press ENTER to start scraping
+  What Happens:
+  Automatically scrolls down to load more jobs
+  Collects job URLs from cards
+  Visits each job page individually
+  Extracts all data fields
+  Saves to database 
 
 2. JobStreet
-Runs: 1 time | Limit: 5,000 jobs per run
-Setup Steps:
-Browser opens JobStreet Philippines
-You manually select filter:
-Check: "Information and Communication Technology"
-Press ENTER to start scraping
-
-What Happens:
-Automatically clicks "Next page" buttons
-Collects all job URLs from every page
-Then visits each job URL one by one
-Extracts all data fields
-Saves to database 
+  Runs: 1 time | Limit: 5,000 jobs per run
+  Setup Steps:
+  Browser opens JobStreet Philippines
+  You manually select filter:
+  Check: "Information and Communication Technology"
+  Press ENTER to start scraping
+  
+  What Happens:
+  Automatically clicks "Next page" buttons
+  Collects all job URLs from every page
+  Then visits each job URL one by one
+  Extracts all data fields
+  Saves to database 
 
 4. Indeed
 Runs: Multiple times (once per job category) | Limit: 500 jobs per run
