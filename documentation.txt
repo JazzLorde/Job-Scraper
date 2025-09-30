@@ -23,32 +23,30 @@ Platform-Specific Scraping Workflows
 Each platform requires different setup steps based on available filters. 
 
 1. LinkedIn
-  - Runs: 3 times (once per industry filter) | Limit: 5,000 jobs per run
-  - Setup Steps:
-  a. Browser opens LinkedIn Jobs (Philippines location)
-  b. You manually select filters:
-    Industry and Job Function
-    Industry: Choose ONE option (run separately for each):
-    Technology, Information and Internet
-    IT Services and Consulting
-    Job Function: Information Technology
-  
+Runs: 3 times (once per industry filter) | Limit: 5,000 jobs per run
+Setup Steps:
+a. Browser opens LinkedIn Jobs (Philippines location)
+b. You manually select filters: Industry and Job Function
+   Industry: Choose ONE option (run separately for each):
+   Technology, Information and Internet
+   IT Services and Consulting
+   Job Function: Information Technology
+c. Press ENTER to start scraping
 
-  c. Press ENTER to start scraping
-    What Happens:  
-  d. Automatically scrolls down to load more jobs
-  e. Collects job URLs from cards
-  f. Visits each job page individually
-  g. Extracts all data fields
-  h. Saves to database 
+  What Happens:  
+  Automatically scrolls down to load more jobs
+  Collects job URLs from cards
+  Visits each job page individually
+  Extracts all data fields
+  Saves to database 
 
 2. JobStreet
-  Runs: 1 time | Limit: 5,000 jobs per run
-  Setup Steps:
-  Browser opens JobStreet Philippines
-  You manually select filter:
-  Check: "Information and Communication Technology"
-  Press ENTER to start scraping
+Runs: 1 time | Limit: 5,000 jobs per run
+Setup Steps:
+a. Browser opens JobStreet Philippines
+b. You manually select filter:
+   Check: "Information and Communication Technology"
+c. Press ENTER to start scraping
   
   What Happens:
   Automatically clicks "Next page" buttons
@@ -60,73 +58,607 @@ Each platform requires different setup steps based on available filters.
 4. Indeed
 Runs: Multiple times (once per job category) | Limit: 500 jobs per run
 Setup Steps:
-Browser opens Indeed Philippines
-You manually search by specific IT job category:
-Examples: "Software Developer", "Data Analyst", "IT Support", "Network Engineer"
-Set location to "Philippines"
-Type the search keyword you used (the category)
-Press ENTER to start scraping
+a. Browser opens Indeed Philippines
+b. You manually search by specific IT job categories 
+c. Press ENTER to start scraping
 
-What Happens:
-Stage 1: Collects job URLs from all search result pages
-Stage 2: Visits each URL individually and extracts data
-Saves to database 
-You repeat this entire process for the next IT category
+  What Happens:
+  Stage 1: Collects job URLs from all search result pages
+  Stage 2: Visits each URL individually and extracts data
+  Saves to database 
+  You repeat this entire process for the next IT category
 
 
 4. Glassdoor
-Glassdoor
 Runs: Multiple times (once per job category) | Limit: 500 jobs per run
 Setup Steps:
-Browser opens Glassdoor
-You manually search by specific IT job category:
-Examples: "Software Engineer", "DevOps Engineer", "Database Administrator"
-Set location to "Philippines"
-Type the search keyword you used (the category)
-Press ENTER to start scraping
+a. Browser opens Glassdoor
+b. You manually search by specific IT job categories 
+c. Press ENTER to start scraping
 
-What Happens:
-Stage 1: Collects job URLs from all search result pages
-Stage 2: Visits each URL individually and extracts data
-Saves to database 
-You repeat this entire process for the next IT category
+  What Happens:
+  Stage 1: Collects job URLs from all search result pages
+  Stage 2: Visits each URL individually and extracts data
+  Saves to database 
+  You repeat this entire process for the next IT category
 
 5. Kalibrr
 Runs: 1 time | Limit: 5,000 jobs per run
 Setup Steps:
-Browser opens Kalibrr
-You manually select filter:
-Click "Filter" button
-Open "Job Function" dropdown
-Check: "IT and Software"
-Click "Search"
-Press ENTER to start scraping
-
-What Happens:
-Collects job URLs from the page
-Visits each job page individually
-Extracts all data fields
-Saves to database 
+a. Browser opens Kalibrr
+b. Click "Filter" button
+c. Open "Job Function" dropdown
+d. Check: "IT and Software"
+e. Click "Search"
+f. Press ENTER to start scraping
+  
+  What Happens:
+  Collects job URLs from the page
+  Visits each job page individually
+  Extracts all data fields
+  Saves to database 
 
 6. Foundit
 Runs: 2 times (once per filter) | Limit: 2,000 jobs per run
 Setup Steps (Run 1):
-Browser opens Foundit Philippines
-You manually set filters:
-- Job Function: IT
-- Industry: IT
-Press ENTER to start scraping
+a. Browser opens Foundit Philippines
+b. You manually set filters:
+   Job Function: IT
+   Industry: IT
+c. Press ENTER to start scraping
 
-What Happens:
-Goes through each page of results
-Clicks each job card (opens in new tab)
-Extracts data from the detail page
-Closes tab and returns to listings
-Moves to next page
-Saves to database 
+  What Happens:
+  Goes through each page of results
+  Clicks each job card (opens in new tab)
+  Extracts data from the detail page
+  Closes tab and returns to listings
+  Moves to next page
+  Saves to database 
+
+
+Data Catalog
+
+Database Table: scraped_jobs
+
+FIELD 1: id
+Data Type       : SERIAL PRIMARY KEY
+Description     : Auto-incrementing unique identifier for each job record
+Source          : PostgreSQL auto-generated
+Usage           : Primary key for database operations
+Sample Values   : 1, 2, 3, 4, 5
+
+FIELD 2: job_title
+Data Type       : VARCHAR(500)
+Description     : Official job position title
+Source          : Extracted from job listing page using platform-specific selectors
+Extraction Logic:
+  - Primary: <h1> tags, [data-testid="job-title"]
+  - Fallback: Title meta tags, first prominent heading
+Validation      : Must not be "N/A" or contain search result text
+Usage           : Job categorization, technology matching, analytics
+Sample Values   : 
+  - "Senior Software Engineer"
+  - "Data Analyst - Business Intelligence"
+  - "IT Support Specialist"
+
+FIELD 3: company_name
+Data Type       : VARCHAR(300)
+Description     : Hiring company or organization name
+Source          : Extracted from company information section
+Extraction Logic: Platform-specific company name selectors
+Validation      : Must not be "N/A"
+Usage           : Company-level analytics
+Sample Values   : 
+  - "Accenture Philippines"
+  - "Globe Telecom"
+  - "Shopee"
+
+
+FIELD 4: location
+Data Type       : VARCHAR(200)
+Description     : Job location (city, region, or work arrangement)
+Source          : Location field from job listing
+Extraction Logic:
+  - Multi-method extraction (links, spans, text patterns)
+  - Handles comma-separated multiple locations
+  - Philippine location pattern recognition
+Transformation  : Cleaned, whitespace stripped, comma-separated if multiple
+Default Value   : "Not specified"
+Usage           : Geographic distribution analysis, remote work trends
+Sample Values   : 
+  - "Metro Manila, Philippines"
+  - "Quezon City, Metro Manila"
+  - "Cebu City, Philippines"
+  - "Remote - Philippines"
+
+
+FIELD 5: job_url
+Data Type       : TEXT
+Description     : Direct URL to the job posting
+Source          : Browser current URL or href attribute
+Validation      : Must be complete URL with schema (https://)
+Usage           : Reference link, duplicate URL tracking, verification
+Sample Value    : "https://ph.indeed.com/viewjob?jk=abc123xyz"
+
+
+FIELD 6: employment_type
+Data Type       : VARCHAR(50)
+Description     : Type of employment arrangement
+Source          : Job details section or description text
+Extraction Logic:
+  - Platform-specific employment type fields
+  - Keyword matching in job description
+Possible Values : 
+  - "Full-time"
+  - "Part-time"
+  - "Contract"
+  - "Freelance"
+  - "Internship"
+  - "Temporary"
+  - "Not specified"
+Default Value   : "Not specified"
+Usage           : Employment trend analysis, filtering
+Sample Value    : "Full-time"
+
+
+FIELD 7: remote_option
+Data Type       : VARCHAR(20)
+Description     : Remote work availability
+Source          : Derived from job title, location, and description
+Extraction Logic (Priority Order):
+  1. Check for "not remote" indicators → On-site
+  2. Check for "hybrid" keywords → Hybrid
+  3. Check for "remote/wfh" keywords → Remote
+  4. Default: On-site
+Possible Values : 
+  - "Remote"
+  - "Hybrid"
+  - "On-site"
+  - "Not Specified"
+Keywords Used   :
+  - Remote: "remote", "wfh", "work from home"
+  - Hybrid: "hybrid"
+  - On-site: "not remote", "office based", "on-site"
+Usage           : Remote work trend analysis, filtering
+Sample Value    : "Hybrid"
+
+
+FIELD 8: posted_date
+Data Type       : DATE
+Description     : Date when job was originally posted
+Source          : Posted date field from job listing
+Extraction Logic: Platform-specific date extraction and conversion
+Transformation  : Converted from relative format to absolute date (YYYY-MM-DD)
+Conversion Examples:
+  - "Posted 3 days ago" → "2025-09-27"
+  - "5d" → "2025-09-25"
+  - "2 weeks ago" → "2025-09-16"
+  - "Posted today" → "2025-09-30"
+Default Value   : NULL
+Usage           : Job freshness analysis, time-series trends
+Sample Value    : "2025-09-28"
+
+
+FIELD 9: platform
+Data Type       : VARCHAR(50)
+Description     : Job platform source
+Source          : Set by scraper class
+Possible Values : 
+  - "Indeed"
+  - "JobStreet"
+  - "LinkedIn"
+  - "Kalibrr"
+  - "Foundit"
+  - "Glassdoor"
+Usage           : Platform comparison, source tracking, cross-platform analytics
+Sample Value    : "LinkedIn"
+
+
+FIELD 10: keyword
+Data Type       : VARCHAR(100)
+Description     : Search keyword or filter used during scraping
+Source          : User input during manual setup
+Purpose         : Track which search term/category retrieved this job
+Default Value   : "Manual Search"
+Usage           : Search effectiveness analysis
+Sample Values   : 
+  - "Data Science and Analysis"
+  - "IT Support and Helpdesk"
+
+
+FIELD 11: seniority_level
+Data Type       : VARCHAR(100)
+Description     : Experience level required for the position
+Source          : Derived from job description and title
+Extraction Logic (Priority Order):
+  1. Check for "internship" keywords → "Internship"
+  2. Check for exact "Fresher" span tag → "Entry Level"
+  3. Check experience requirements (2+ years) → "Non-Entry Level"
+  4. Check senior indicators → "Non-Entry Level"
+  5. Check entry indicators → "Entry Level"
+  6. Default → "Non-Entry Level"
+Possible Values : 
+  - "Entry Level"
+  - "Non-Entry Level"
+  - "Internship"
+Keywords Used   :
+  - Entry: "entry level", "junior", "associate", "fresh graduate"
+  - Senior: "senior", "lead", "manager", "director", "principal"
+  - Internship: "intern", "internship", "trainee"
+Usage           : Experience level analytics, job segmentation
+Sample Value    : "Entry Level"
+
+FIELD 12: salary
+Data Type       : TEXT
+Description     : Salary or compensation information
+Source          : Salary field from job listing or description
+Extraction Logic:
+  - Regex pattern matching for currency formats
+  - Philippine Peso (₱, PHP) and USD ($) detection
+  - Range detection
+Patterns Matched:
+  - ₱[\d,]+(?:\s*-\s*₱[\d,]+)?
+  - PHP\s*[\d,]+(?:\s*-\s*PHP\s*[\d,]+)?
+  - \$[\d,]+(?:\s*-\s*\$[\d,]+)?
+Default Value   : NULL
+Usage           : Salary analysis, compensation trends
+Sample Values   : 
+  - "₱40,000 - ₱60,000 per month"
+  - "PHP 500,000 - PHP 800,000 annually"
+  - "$50,000 per year"
+
+
+FIELD 13: technologies
+Data Type       : TEXT
+Description     : Comma-separated list of technologies/skills mentioned
+Source          : Derived from job title and qualifications text
+Extraction Logic:
+  - Pattern matching against 100+ technology keywords
+  - Context-aware matching (avoids false positives)
+  - Special handling for ambiguous terms (R, Go, Swift, PHP)
+Technology Categories Detected:
+  - Programming Languages: Python, Java, JavaScript, C++, C#, PHP, Ruby, etc.
+  - Web Technologies: React, Angular, Vue, Node.js, Django, Laravel, etc.
+  - Databases: SQL, MySQL, PostgreSQL, MongoDB, Redis, etc.
+  - Cloud Platforms: AWS, Azure, GCP
+  - DevOps Tools: Docker, Kubernetes, Jenkins, Terraform, etc.
+  - Data Tools: Pandas, Tableau, Power BI, Excel, etc.
+  - Mobile: Android, iOS, React Native, Flutter
+Format          : Comma-separated, alphabetically sorted, title case
+Default Value   : NULL
+Usage           : Skills demand analysis, technology trends, job matching
+Sample Values   : 
+  - "AWS, Docker, JavaScript, Python, React"
+  - "Java, MySQL, Spring"
+  - "Excel, Power BI, SQL, Tableau"
+
+
+FIELD 14: qualifications
+Data Type       : TEXT
+Description     : Full job description and qualifications text
+Source          : Job description section from listing page
+Extraction Logic:
+  - Platform-specific description selectors
+  - Whitespace normalized (multiple spaces → single space)
+  - Separator: single space between elements
+Transformation  :
+  - get_text(separator=' ', strip=True)
+  - re.sub(r'\s+', ' ', text)
+Validation      : Must be > 20 characters
+Usage           : Technology extraction, duplicate detection, full-text search
+Typical Length  : 500-5000 characters
+Sample Value    : "We are seeking a talented Software Engineer... 
+                   Requirements: Bachelor's degree in Computer Science... 
+                   3+ years experience with Python and Django..."
+
+
+FIELD 15: qualifications_hash
+Data Type       : VARCHAR(32)
+Description     : MD5 hash of qualifications text for duplicate detection
+Source          : Generated from qualifications field
+Generation Logic: hashlib.md5(qualifications.strip().encode('utf-8')).hexdigest()
+Purpose         : Fast duplicate checking without comparing full text
+Usage           : Prevents duplicate job entries with same description
+Sample Value    : "5d41402abc4b2a76b9719d911017c592"
+
+
+FIELD 16: category
+Data Type       : VARCHAR(100)
+Description     : Philippine IT market job category
+Source          : Derived from job title using keyword matching
+Extraction Logic: Priority-based keyword matching (specific → general)
+Possible Values (11 Categories):
+  1. "Software, Web, and Mobile Development"
+  2. "Data Science and Analysis"
+  3. "DevOps and Platform Engineering"
+  4. "Quality Assurance and Testing"
+  5. "Database Administration"
+  6. "Cloud Computing"
+  7. "Cybersecurity"
+  8. "Network and Systems Administration"
+  9. "Business and Systems Analysis"
+  10. "IT Management and Operations"
+  11. "IT Support and Helpdesk"
+  12. "Other IT" (fallback)
+Usage           : Job market segmentation, category-level analytics
+Sample Value    : "Software, Web, and Mobile Development"
+
+
+FIELD 17: scraped_at
+Data Type       : TIMESTAMP
+Description     : Timestamp when record was inserted into database
+Source          : PostgreSQL DEFAULT CURRENT_TIMESTAMP
+Format          : YYYY-MM-DD HH:MM:SS
+Usage           : Data freshness tracking, scraping session identification
+Sample Value    : "2025-09-30 14:32:18"
+
+
+DATA QUALITY RULES
+REQUIRED FIELDS (Cannot be NULL or "N/A")
+- job_title
+- company_name
+- job_url
+- platform
+
+VALIDATION RULES
+
+1. QUALIFICATIONS VALIDATION
+   Rule: Must be > 20 characters
+   Reason: Ensures substantial job description content
+   Action: Skip job if validation fails
+
+2. JOB URL VALIDATION
+   Rule: Must include protocol (https://)
+   Valid Example: "https://ph.indeed.com/viewjob?jk=123"
+   Invalid Example: "ph.indeed.com/viewjob?jk=123"
+   Action: Skip job if vaidation fails
+
+3. POSTED DATE VALIDATION
+   Rule: Must be valid date or NULL
+   Accepted Formats: YYYY-MM-DD
+   Action: Set to NULL if parsing fails
+
+4. QUALIFICATIONS HASH UNIQUENESS
+   Rule: Hash must be unique in database
+   Purpose: Prevent duplicate job descriptions
+   Action: Skip job if duplicate hash exists
+
+
+DERIVED FIELD DEPENDENCIES
+
+TECHNOLOGIES depends on:
+- job_title
+- qualifications
+
+REMOTE_OPTION depends on:
+- job_title
+- location
+- qualifications
+
+SENIORITY_LEVEL depends on:
+- job_title
+- qualifications
+
+EMPLOYMENT_TYPE depends on:
+- job_title
+- qualifications
+
+CATEGORY depends on:
+- job_title
+
+QUALIFICATIONS_HASH depends on:
+- qualifications
+
+
+DATA CONSISTENCY CHECKS
+
+1. PLATFORM CONSISTENCY
+   Check: platform value must match scraper class
+   Example: LinkedinScraper must set platform = "LinkedIn"
+
+2. KEYWORD TRACKING
+   Check: keyword must match user input during scraping session
+   Default: "Manual Search" if not provided
+
+3. TIMESTAMP ACCURACY
+   Check: scraped_at must be within reasonable time of actual scrape
+   Tolerance: Within 5 minutes of job extraction
+
+4. LOCATION FORMAT
+   Check: Clean comma-separated format
+   Valid: "Metro Manila, Philippines"
+   Valid: "Quezon City, Metro Manila, Philippines"
+   Invalid: "Metro Manila,Philippines" (missing space)
+
+5. SALARY FORMAT
+   Check: Must include currency symbol or code if not NULL
+   Valid: "₱40,000 - ₱60,000"
+   Valid: "PHP 500,000"
+   Invalid: "40000-60000" (no currency)
+   Note: NULL is acceptable (many jobs don't show salary)
+
+6. REMOTE OPTION VALUES
+   Check: Must be one of the allowed values
+   Valid Values:
+   - "On-site"
+   - "Hybrid"
+   - "Remote"
+   - "Not Specified"
+   Invalid: Any other value
+   Action: Default to "On-site" if extraction fails
+
+7. SENIORITY LEVEL VALUES
+   Check: Must be one of the allowed values
+   Valid Values:
+   - "Entry Level"
+   - "Non-Entry Level"
+   - "Internship"
+   Invalid: Any other value
+   Action: Default to "Non-Entry Level" if extraction fails
+
+8. EMPLOYMENT TYPE VALUES
+   Check: Must be one of the standard types
+   Valid Values:
+   - "Full-time"
+   - "Part-time"
+   - "Contract"
+   - "Freelance"
+   - "Internship"
+   - "Temporary"
+   - "Not specified"
+   Invalid: Any other value
+   Action: Default to "Not specified" if extraction fails
+
+
+DUPLICATE PREVENTION STRATEGY
+
+PRIMARY METHOD: MD5 Hash Comparison
+- Generate hash from qualifications text
+- Query database for existing hash
+- If found: Skip job (duplicate)
+- If not found: Proceed with insertion
+
+SECONDARY METHOD: URL Tracking
+- Maintain scraped_urls set during session
+- Check if URL already processed in current session
+- Prevents re-scraping same job in one run
+
+RESULT:
+Only unique jobs are stored, even when:
+- Same job appears on multiple platforms
+- Same job reposted with updated date
+- Multiple search keywords return same job
+
+SECTION 4: DATA LINEAGE
+
+Complete data journey from source to visualization
+
+STAGE 1: DATA COLLECTION
+Source Platform (Live Website)
+    ↓
+    [Platform varies: LinkedIn, Indeed, JobStreet, etc.]
+    [User applies manual filters]
+    ↓
+Selenium WebDriver
+    ↓
+    [Automated browser opens job pages]
+    [Handles JavaScript rendering]
+    [Manages pagination and scrolling]
+    ↓
+Raw HTML Content
+
+
+STAGE 2: DATA EXTRACTION
+Raw HTML Content
+    ↓
+BeautifulSoup4 Parser
+    ↓
+    [Parses HTML structure]
+    [Identifies data elements via CSS selectors]
+    ↓
+Platform-Specific Scraper
+    ↓
+    [indeed_scraper.py, linkedin_scraper.py, etc.]
+    [Applies platform-specific extraction logic]
+    ↓
+Raw Data Fields (17 fields extracted)
 
 
 
+STAGE 3: DATA TRANSFORMATION
+Raw Data Fields
+    ↓
+Date Normalizer (utils/date_utils.py)
+    ↓
+    [Converts relative dates → absolute dates]
+    ["Posted 3 days ago" → "2025-09-27"]
+    ↓
+Technology Extractor (utils/tech_extractor.py)
+    ↓
+    [Pattern matches 100+ technology keywords]
+    [Context-aware detection]
+    [Returns: "AWS, Docker, Python, React"]
+    ↓
+Job Categorizer (utils/categorizer.py)
+    ↓
+    [Keyword-based classification]
+    [Assigns to 1 of 11 IT categories]
+    ↓
+Remote Option Detector
+    ↓
+    [Analyzes title, location, description]
+    [Determines: Remote/Hybrid/On-site]
+    ↓
+Seniority Level Classifier
+    ↓
+    [Priority-based logic]
+    [Classifies: Entry Level/Non-Entry Level/Internship]
+    ↓
+Cleaned & Enriched Data
+      ↓
+
+STAGE 4: DATA QUALITY CONTROL
+
+Cleaned & Enriched Data
+      ↓
+Validation Layer
+    ↓
+    [Check: job_title not "N/A"]
+    [Check: qualifications > 20 characters]
+    [Check: job_url has protocol]
+    ↓
+    PASS → Continue
+    FAIL → Skip job, log reason
+    ↓
+Hash Generator
+    ↓
+    [Generate MD5 hash from qualifications]
+    [qualifications_hash = hashlib.md5(...)]
+    ↓
+Duplicate Checker
+    ↓
+    [Query: SELECT * FROM scraped_jobs WHERE qualifications_hash = ?]
+    ↓
+    DUPLICATE FOUND → Skip job
+    NEW JOB → Continue
+    ↓
+Validated Unique Data
+
+STAGE 5: DATA STORAGE
+
+Validated Unique Data
+    ↓
+Database Connection (database/connection.py)
+    ↓
+    [PostgreSQL psycopg2 adapter]
+    [Connection to localhost:5432/JobPostings]
+    ↓
+INSERT Query
+    ↓
+    [INSERT INTO scraped_jobs (17 fields) VALUES (...)]
+    [Auto-generates: id, scraped_at timestamp]
+    ↓
+PostgreSQL Database (scraped_jobs table)
+    ↓
+PowerBI Connection
+
+
+METADATA TRACKING
+Each record maintains full lineage information:
+
+1. SOURCE TRACKING
+   - platform: Which website (LinkedIn, Indeed, etc.)
+   - keyword: What search term was used
+   - job_url: Original source URL
+
+2. TEMPORAL TRACKING
+   - posted_date: When job was originally posted
+   - scraped_at: When we collected the data
+
+3. PROCESSING TRACKING
+   - qualifications_hash: Unique identifier for duplicate detection
+   - category: Result of categorization algorithm
+   - technologies: Result of extraction algorithm
 
 
 
